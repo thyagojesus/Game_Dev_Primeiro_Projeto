@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 enum PlayerState{
-	idle,walk,jump,fall,dunk,slide, dead
+	idle,walk,jump,fall,dunk,slide, hurt
 }
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
@@ -37,8 +37,8 @@ func _physics_process(delta: float) -> void:
 			dunk_state(delta)
 		PlayerState.slide:
 			slide_state(delta)
-		PlayerState.dead:
-			dead_state(delta)
+		PlayerState.hurt:
+			hurt_state(delta)
 			
 	move_and_slide()
 			
@@ -76,12 +76,12 @@ func go_to_slide_state():
 func exit_from_slide_state():
 	set_large_Collider()
 
-func go_to_dead_state():
-	status = PlayerState.dead
-	anim.play("dead")
+func go_to_hurt_state():
+	status = PlayerState.hurt
+	anim.play("hurt")
 	velocity = Vector2.ZERO
 	
-func exit_from_dead_state():
+func exit_from_hurt_state():
 	pass
 
 
@@ -158,7 +158,7 @@ func slide_state(delta):
 		exit_from_slide_state()
 		go_to_dunk_state()
  
-func dead_state(_delta):
+func hurt_state(_delta):
 	pass
 		
 		
@@ -194,7 +194,7 @@ func set_large_Collider():
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if velocity.y > 0:
-		area.get_parent().queue_free()
+		area.get_parent().take_damege()
 		go_to_jump_state()
 	else:
-		go_to_dead_state()
+		go_to_hurt_state()

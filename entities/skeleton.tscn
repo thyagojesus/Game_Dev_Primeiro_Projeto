@@ -1,19 +1,114 @@
 [gd_scene format=3 uid="uid://8xu880kf3uy8"]
 
-[ext_resource type="Texture2D" uid="uid://c2ce723pfjs88" path="res://sprites/Sprite Pack 6/3 - Skeleton/Standing (32 x 32).png" id="1_20vpb"]
+[ext_resource type="Script" uid="uid://dw35784ldeait" path="res://scripts/skeleton.gd" id="1_fpmxe"]
+[ext_resource type="Texture2D" uid="uid://caeiablroccw" path="res://sprites/Sprite Pack 6/3 - Skeleton/Crumbling_Into_Bone_Pile (32 x 32).png" id="1_yag7t"]
+[ext_resource type="Texture2D" uid="uid://cwcmr1cyuirag" path="res://sprites/Sprite Pack 6/3 - Skeleton/Limping_Movement (32 x 32).png" id="2_fpmxe"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yag7t"]
 radius = 7.0
 height = 24.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4oc3b"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6hr2a"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j31jw"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tx6xw"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mssj4"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kifd"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsvvn"]
+atlas = ExtResource("1_yag7t")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oayfp"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qj8h"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sdy1"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu166"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lem8q"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dp68x"]
+atlas = ExtResource("2_fpmxe")
+region = Rect2(160, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_fpmxe"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_20vpb")
+"texture": SubResource("AtlasTexture_4oc3b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6hr2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j31jw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tx6xw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mssj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kifd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xsvvn")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oayfp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4qj8h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sdy1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu166")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lem8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dp68x")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -21,6 +116,7 @@ animations = [{
 size = Vector2(12, 27)
 
 [node name="skeleton" type="CharacterBody2D" unique_id=1552843802]
+script = ExtResource("1_fpmxe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=279464373]
 position = Vector2(0, 3)
@@ -29,6 +125,7 @@ shape = SubResource("CapsuleShape2D_yag7t")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1306717059]
 position = Vector2(-1, -1)
 sprite_frames = SubResource("SpriteFrames_fpmxe")
+animation = &"hurt"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1368546614]
 
@@ -36,3 +133,12 @@ sprite_frames = SubResource("SpriteFrames_fpmxe")
 position = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_20vpb")
 debug_color = Color(0.9945732, 0, 0.2272825, 0.41960785)
+
+[node name="WallDetector" type="RayCast2D" parent="." unique_id=357342649]
+position = Vector2(7, 13)
+rotation = -1.5664426
+target_position = Vector2(0.04353714, 9.999907)
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=792836994]
+position = Vector2(10, -12)
+target_position = Vector2(0, 29)
