@@ -1,14 +1,15 @@
 extends CharacterBody2D
 
 enum PlayerState{
-	idle,walk,jump,fall,dunk
+	idle,walk,jump,fall,dunk,slide, dead
 }
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
 @export var max_speed = 180.0
-@export var aceleration = 200
+@export var aceleration = 400
 @export var deceleration = 400
+@export var slide_deceleration = 100
 const JUMP_VELOCITY = -300.0
 
 var status: PlayerState
@@ -34,6 +35,10 @@ func _physics_process(delta: float) -> void:
 			fall_state(delta)
 		PlayerState.dunk:
 			dunk_state(delta)
+		PlayerState.slide:
+			slide_state(delta)
+		PlayerState.dead:
+			dead_state(delta)
 			
 	move_and_slide()
 			
@@ -57,15 +62,27 @@ func go_to_fall_state():
 func go_to_dunk_state():
 	status = PlayerState.dunk
 	anim.play("dunk")
-	collision_shape.shape.radius = 5
-	collision_shape.shape.height = 10
-	collision_shape.position.y = 3
+	set_small_Collider()
 	
 func exit_from_duck_state():
-	collision_shape.shape.radius = 6
-	collision_shape.shape.height = 16
-	collision_shape.position.y = 0
+	set_large_Collider()
 	
+func go_to_slide_state():
+	status = PlayerState.slide
+	set_small_Collider()
+	anim.play("slide")
+	
+	
+func exit_from_slide_state():
+	set_large_Collider()
+
+func go_to_dead_state():
+	status = PlayerState.dead
+	anim.play("dead")
+	velocity = Vector2.ZERO
+	
+func exit_from_dead_state():
+	pass
 
 
 func idle_state(delta):
@@ -88,7 +105,11 @@ func walk_state(delta):
 		return
 	if Input.is_action_just_pressed("jump"):
 		go_to_jump_state()
-	return
+		return
+	
+	if Input.is_action_just_pressed("dunk"):
+		go_to_slide_state()
+		return
 	
 	if !is_on_floor():
 		jump_count +=1
@@ -126,6 +147,21 @@ func dunk_state(delta):
 		exit_from_duck_state()
 		go_to_idle_state()
 		return
+		
+func slide_state(delta):
+	velocity.x = move_toward(velocity.x ,0, slide_deceleration * delta)
+	if Input.is_action_just_released("dunk"):
+		exit_from_slide_state()
+		go_to_walk_state()
+		return
+	if  velocity.x ==0:
+		exit_from_slide_state()
+		go_to_dunk_state()
+ 
+func dead_state(_delta):
+	pass
+		
+		
 
 func move(delta):
 	update_direction()
@@ -145,3 +181,20 @@ func update_direction():
 		
 func can_Jump() -> bool:
 	return jump_count < jump_max
+	
+func set_small_Collider():
+	collision_shape.shape.radius = 5
+	collision_shape.shape.height = 10
+	collision_shape.position.y = 0
+func set_large_Collider():
+	collision_shape.shape.radius = 6
+	collision_shape.shape.height = 16
+	collision_shape.position.y = 0
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if velocity.y > 0:
+		area.get_parent().queue_free()
+		go_to_jump_state()
+	else:
+		go_to_dead_state()

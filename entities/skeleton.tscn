@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://8xu880kf3uy8"]
+
+[ext_resource type="Texture2D" uid="uid://c2ce723pfjs88" path="res://sprites/Sprite Pack 6/3 - Skeleton/Standing (32 x 32).png" id="1_20vpb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yag7t"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fpmxe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_20vpb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20vpb"]
+size = Vector2(12, 27)
+
+[node name="skeleton" type="CharacterBody2D" unique_id=1552843802]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=279464373]
+position = Vector2(0, 3)
+shape = SubResource("CapsuleShape2D_yag7t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1306717059]
+position = Vector2(-1, -1)
+sprite_frames = SubResource("SpriteFrames_fpmxe")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1368546614]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=852915249]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_20vpb")
+debug_color = Color(0.9945732, 0, 0.2272825, 0.41960785)
