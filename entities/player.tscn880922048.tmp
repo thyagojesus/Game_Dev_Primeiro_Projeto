@@ -200,8 +200,4 @@ collision_mask = 4
 shape = SubResource("RectangleShape2D_6nm46")
 debug_color = Color(0.98228043, 0, 0.3677842, 0.41960785)
 
-[node name="ReloadTimer" type="Timer" parent="." unique_id=1745412842]
-one_shot = true
-
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]

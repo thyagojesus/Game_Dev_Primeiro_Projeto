@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://ci6yocecub5y3" path="res://tiles/terrain.tres" id="2_ry6l7"]
 [ext_resource type="TileSet" uid="uid://ckf2afy4m5an6" path="res://tiles/decoration.tres" id="3_ry6l7"]
 [ext_resource type="Texture2D" uid="uid://ca6wptqg1wg24" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/5 - Sky_color.png" id="4_4big0"]
+[ext_resource type="PackedScene" uid="uid://c3bwc4lkfcq8m" path="res://entities/spinning_bone.tscn" id="4_ei81g"]
 [ext_resource type="Texture2D" uid="uid://tsqqufbk23of" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/4 - Floating_clouds.png" id="5_mf6tq"]
 [ext_resource type="Texture2D" uid="uid://bxlggdi5ar5v2" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/3 - Background_clouds.png" id="6_pss51"]
 [ext_resource type="Texture2D" uid="uid://coy58shs7swok" path="res://sprites/Seasonal Tilesets/3 - Tropics/Background parts/1 - Waters_version_1.png" id="7_7xb8y"]
@@ -118,5 +119,8 @@ next_level = "forest"
 [node name="CollisionShape2D" parent="LevelEnd" index="0"]
 position = Vector2(211, -59)
 shape = SubResource("RectangleShape2D_d18o5")
+
+[node name="SpinningBone" parent="." unique_id=195163471 instance=ExtResource("4_ei81g")]
+position = Vector2(154, 139)
 
 [editable path="LevelEnd"]

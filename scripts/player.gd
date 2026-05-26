@@ -10,6 +10,8 @@ enum PlayerState{
 @export var aceleration = 400
 @export var deceleration = 400
 @export var slide_deceleration = 100
+@onready var reload_timer: Timer = $ReloadTimer
+
 const JUMP_VELOCITY = -300.0
 
 var status: PlayerState
@@ -80,6 +82,7 @@ func go_to_hurt_state():
 	status = PlayerState.hurt
 	anim.play("hurt")
 	velocity = Vector2.ZERO
+	reload_timer.start()
 	
 func exit_from_hurt_state():
 	pass
@@ -171,7 +174,6 @@ func move(delta):
 	else:
 		velocity.x = move_toward(velocity.x,0, deceleration * delta)
 	
-		
 func update_direction():
 	direction = Input.get_axis("left", "right")
 	if direction < 0:
@@ -197,4 +199,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		area.get_parent().take_damege()
 		go_to_jump_state()
 	else:
-		go_to_hurt_state()
+		if status != PlayerState.hurt:
+			go_to_hurt_state()
+
+
+func _on_reload_timer_timeout() -> void:
+	get_tree().reload_current_scene()
