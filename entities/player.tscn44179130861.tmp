@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cpemranmom4hy" path="res://sprites/1 - Penguin/Jump (16 x 16).png" id="3_rfe5m"]
 [ext_resource type="Texture2D" uid="uid://dm7irdveq3g2b" path="res://sprites/1 - Penguin/Lying_On_Ground (16 x 16).png" id="3_tjdhl"]
 [ext_resource type="Texture2D" uid="uid://dp6mi36fbhouq" path="res://sprites/1 - Penguin/Belly_Sliding (16 x 16).png" id="6_6nm46"]
-[ext_resource type="Texture2D" uid="uid://4ixbyl5jo27d" path="res://sprites/1 - Penguin/Wall_Slide (16x16).png" id="10_tjdhl"]
+[ext_resource type="Texture2D" uid="uid://cg8j3mivmng0" path="res://sprites/1 - Penguin/Looking_Up (16 x 16).png" id="10_tjdhl"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3f3p"]
 radius = 6.0
@@ -82,14 +82,6 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgp7q"]
 atlas = ExtResource("10_tjdhl")
 region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1n8aq"]
-atlas = ExtResource("10_tjdhl")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_28s6d"]
-atlas = ExtResource("10_tjdhl")
-region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i623q"]
 animations = [{
@@ -191,12 +183,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cgp7q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1n8aq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_28s6d")
 }],
 "loop": true,
 "name": &"wall",
@@ -218,9 +204,7 @@ shape = SubResource("CapsuleShape2D_u3f3p")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1133728948]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_i623q")
-animation = &"wall"
-autoplay = "wall"
-frame_progress = 0.89848995
+animation = &"fall"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1420292021]
 z_index = 10
