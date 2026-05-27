@@ -14,7 +14,7 @@ enum SkeletonState {
 var direction = 1
 var can_throw = true
 
-const SPEED = 30.0
+const SPEED = 10.0
 const JUMP_VELOCITY = -400.0
 
 var status = SkeletonState

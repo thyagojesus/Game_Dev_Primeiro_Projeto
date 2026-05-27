@@ -175,7 +175,7 @@ animation = &"attack"
 frame = 4
 frame_progress = 1.0
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1368546614]
+[node name="Hitbox" type="Area2D" parent="." unique_id=1368546614 groups=["Enemies"]]
 collision_layer = 4
 collision_mask = 2
 

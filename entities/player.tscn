@@ -183,6 +183,11 @@ size = Vector2(10, 16)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("1_merdl")
+max_speed = null
+aceleration = null
+deceleration = null
+slide_deceleration = null
+jump_count = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=741598909]
 shape = SubResource("CapsuleShape2D_u3f3p")
@@ -194,7 +199,7 @@ animation = &"hurt"
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=327141029]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 20
 
 [node name="Hitbox" type="CollisionShape2D" parent="Hitbox" unique_id=1288765786]
 shape = SubResource("RectangleShape2D_6nm46")
