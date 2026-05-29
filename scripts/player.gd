@@ -148,7 +148,7 @@ func jump_state(delta):
 	apply_gravity(delta)
 	move(delta)
 	
-	if Input.is_action_just_pressed("jump") && can_jump():
+	if (Input.is_action_just_pressed("jump") && can_jump()) && is_on_wall():
 		go_to_jump_state()
 		return
 	
