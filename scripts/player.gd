@@ -8,6 +8,7 @@ enum PlayerState {
 	duck,
 	slide,
 	wall,
+	swiming,
 	hurt
 }
 
@@ -25,6 +26,9 @@ enum PlayerState {
 @export var slide_deceleration = 100
 @export var wall_acceleration = 40
 @export var wall_jump_velocity = 240
+@export var water_max_speed = 100
+@export var water_acceleration = 200
+
 const JUMP_VELOCITY = -300.0
 
 var jump_count = 0
@@ -54,6 +58,8 @@ func _physics_process(delta: float) -> void:
 			slide_state(delta)
 		PlayerState.wall:
 			wall_state(delta)
+		PlayerState.swiming:
+			swiming_state(delta)
 		PlayerState.hurt:
 			hurt_state(delta)
 			
@@ -98,7 +104,10 @@ func go_to_wall_state():
 	anim.play("wall")
 	velocity = Vector2.ZERO
 	
-
+func go_to_swiming_state():
+	status = PlayerState.swiming
+	anim.play("swiming")
+	velocity.y = min(velocity.y, 150)
 	
 func go_to_hurt_state():
 	if status == PlayerState.hurt:
@@ -223,7 +232,21 @@ func wall_state(delta):
 		velocity.x = wall_jump_velocity * direction
 		return
 		
+func swiming_state(delta):
+	update_direction()
+	
+	if direction:
+		velocity.x = move_toward(velocity.x ,water_max_speed * direction, water_acceleration * delta)
 		
+	else:
+		velocity.x = move_toward(velocity.x,0 , water_acceleration * delta)
+		
+	velocity.y += water_acceleration * delta
+	velocity.y = min(velocity.y, water_max_speed)
+	
+	if Input.is_action_just_pressed("jump"):
+		velocity.y = water_max_speed * -1
+	
 func hurt_state(delta):
 	apply_gravity(delta)
 	pass
@@ -274,8 +297,11 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		hit_lethal_area()
 		
 func _on_hitbox_body_entered(body: Node2D) -> void:
+	
 	if body.is_in_group("LethalArea"):
 		go_to_hurt_state()
+	elif body.is_in_group("Water"):
+		go_to_swiming_state()
 
 func hit_enemy(area: Area2D):
 	if velocity.y > 0:
@@ -291,3 +317,9 @@ func hit_lethal_area():
 
 func _on_reload_timer_timeout() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_hitbox_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Water"):
+		jump_count=0
+		go_to_jump_state()
