@@ -8,21 +8,17 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
 config/name="Plataforma2D-YouTube"
-run/main_scene="uid://byo1oohh1d26d"
-config/features=PackedStringArray("4.6", "Mobile")
+run/main_scene="uid://c8yhqpob56plw"
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=400
-window/size/viewport_height=208
+window/size/viewport_width=300
+window/size/viewport_height=200
 window/size/mode=2
 window/stretch/mode="canvas_items"
 
@@ -68,7 +64,7 @@ duck={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="level_end"
 2d_physics/layer_5="lethal_area"
-2d_physics/layer_6="Water"
+2d_physics/layer_6="water"
 
 [rendering]
 

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bes2p46skt65p"]
+[gd_scene load_steps=26 format=3 uid="uid://bes2p46skt65p"]
 
 [ext_resource type="Script" uid="uid://b7q50irpt7umd" path="res://scripts/skeleton.gd" id="1_yag7t"]
 [ext_resource type="Texture2D" uid="uid://fm3bdt2v6o3q" path="res://sprites/3 - Skeleton/Bone_Toss (32 x 32).png" id="2_4oc3b"]
@@ -156,44 +156,44 @@ height = 26.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yag7t"]
 size = Vector2(12, 26)
 
-[node name="Skeleton" type="CharacterBody2D" unique_id=866932136]
+[node name="Skeleton" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_yag7t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1121926360]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 0.1)
 sprite_frames = SubResource("SpriteFrames_yag7t")
-animation = &"attack"
-frame = 2
+animation = &"walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=888660137]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(2, 3)
 shape = SubResource("CapsuleShape2D_fpmxe")
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1889624305 groups=["Enemies"]]
+[node name="Hitbox" type="Area2D" parent="." groups=["Enemies"]]
 visible = false
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1702223843]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(2, 3)
 shape = SubResource("RectangleShape2D_yag7t")
 debug_color = Color(0.967938, 0, 0.471078, 0.42)
 
-[node name="WallDetector" type="RayCast2D" parent="." unique_id=1208351476]
+[node name="WallDetector" type="RayCast2D" parent="."]
 position = Vector2(1, 13)
 target_position = Vector2(11, 0)
 
-[node name="GroundDetector" type="RayCast2D" parent="." unique_id=6844303]
+[node name="GroundDetector" type="RayCast2D" parent="."]
 position = Vector2(11, 0)
 target_position = Vector2(0, 19)
 
-[node name="PlayerDetector" type="RayCast2D" parent="." unique_id=1992118683]
+[node name="PlayerDetector" type="RayCast2D" parent="."]
 position = Vector2(0, 13)
 target_position = Vector2(48, 0)
 collision_mask = 2
 
-[node name="BoneStartPosition" type="Node2D" parent="." unique_id=1757169929]
+[node name="BoneStartPosition" type="Node2D" parent="."]
 position = Vector2(13, -1)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

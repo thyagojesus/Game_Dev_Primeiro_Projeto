@@ -1,10 +1,10 @@
-[gd_resource type="TileSet" format=3 uid="uid://evyc8spfes4j"]
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://evyc8spfes4j"]
 
-[ext_resource type="Texture2D" uid="uid://ckr75glq1e67v" path="res://sprites/Seasonal Tilesets/5 - Misc. universal tiles/Water_frames (16 x 32).png" id="1_gcn54"]
+[ext_resource type="Texture2D" uid="uid://ckr75glq1e67v" path="res://sprites/Seasonal Tilesets/5 - Misc. universal tiles/Water_frames (16 x 32).png" id="1_5y656"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ytc0w"]
-texture = ExtResource("1_gcn54")
-0:0/animation_frame_0/duration = 1.0
+texture = ExtResource("1_5y656")
+0:0/animation_frame_0/duration = 0.3
 0:0/animation_frame_1/duration = 0.3
 0:0/0 = 0
 0:1/animation_frame_0/duration = 0.3
